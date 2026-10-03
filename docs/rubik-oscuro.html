@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historia del Cubo de Rubik – Tonos Oscuros</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #12141a;
+      color: #d8d6d2;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Navegación lateral */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 260px;
+      height: 100vh;
+      background: #1a1d26;
+      border-right: 1px solid #2a2e3a;
+      padding: 40px 18px;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    nav h1 {
+      font-size: 1.15rem;
+      color: #a89f91;
+      margin-bottom: 30px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    nav a {
+      color: #9a958c;
+      text-decoration: none;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.25s ease;
+      display: block;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: #2a2e3a;
+      color: #e8e4de;
+    }
+
+    /* Contenido principal */
+    main {
+      margin-left: 260px;
+    }
+
+    section {
+      min-height: 100vh;
+      padding: 70px 55px;
+      display: flex;
+      align-items: center;
+      gap: 50px;
+      position: relative;
+      border-bottom: 1px solid #22262f;
+    }
+
+    /* Fondos oscuros alternados */
+    #seccion1 { background: #14161e; }
+    #seccion2 { background: #161920; }
+    #seccion3 { background: #15181f; }
+    #seccion4 { background: #14171e; }
+    #seccion5 { background: #16191f; }
+
+    .content {
+      flex: 1;
+      max-width: 620px;
+    }
+
+    .content h2 {
+      font-size: 2.35rem;
+      margin-bottom: 12px;
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    #seccion1 h2 { color: #c4a484; }
+    #seccion2 h2 { color: #8fad9b; }
+    #seccion3 h2 { color: #8fa3b8; }
+    #seccion4 h2 { color: #a994b5; }
+    #seccion5 h2 { color: #b8a08a; }
+
+    .content .year {
+      display: inline-block;
+      padding: 5px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 22px;
+      color: #1a1d26;
+      letter-spacing: 0.4px;
+    }
+
+    #seccion1 .year { background: #c4a484; }
+    #seccion2 .year { background: #8fad9b; }
+    #seccion3 .year { background: #8fa3b8; }
+    #seccion4 .year { background: #a994b5; }
+    #seccion5 .year { background: #b8a08a; }
+
+    .content p {
+      font-size: 1.07rem;
+      color: #b0aba3;
+      margin-bottom: 14px;
+    }
+
+    .content strong {
+      font-weight: 600;
+    }
+
+    #seccion1 strong { color: #c4a484; }
+    #seccion2 strong { color: #8fad9b; }
+    #seccion3 strong { color: #8fa3b8; }
+    #seccion4 strong { color: #a994b5; }
+    #seccion5 strong { color: #b8a08a; }
+
+    .content ul {
+      margin: 14px 0 14px 22px;
+      color: #b0aba3;
+    }
+
+    .content li {
+      margin-bottom: 8px;
+      font-size: 1.04rem;
+    }
+
+    .image-box {
+      flex: 1;
+      max-width: 450px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+      border: 1px solid #2a2e3a;
+      background: #1a1d26;
+    }
+
+    .image-box img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      min-height: 300px;
+    }
+
+    /* Número de sección grande */
+    .section-number {
+      position: absolute;
+      right: 35px;
+      bottom: 25px;
+      font-size: 5.8rem;
+      font-weight: 800;
+      opacity: 0.07;
+      pointer-events: none;
+      line-height: 1;
+    }
+
+    #seccion1 .section-number { color: #c4a484; }
+    #seccion2 .section-number { color: #8fad9b; }
+    #seccion3 .section-number { color: #8fa3b8; }
+    #seccion4 .section-number { color: #a994b5; }
+    #seccion5 .section-number { color: #b8a08a; }
+
+    /* Responsive */
+    @media (max-width: 950px) {
+      nav {
+        width: 100%;
+        height: auto;
+        position: relative;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 18px;
+        gap: 6px;
+      }
+
+      nav h1 {
+        width: 100%;
+        margin-bottom: 10px;
+        font-size: 1.05rem;
+      }
+
+      nav a {
+        font-size: 0.85rem;
+        padding: 10px 12px;
+      }
+
+      main {
+        margin-left: 0;
+      }
+
+      section {
+        flex-direction: column;
+        padding: 45px 22px;
+        gap: 28px;
+        min-height: auto;
+      }
+
+      .content h2 {
+        font-size: 1.8rem;
+      }
+
+      .image-box {
+        max-width: 100%;
+        width: 100%;
+      }
+
+      .section-number {
+        font-size: 4rem;
+        right: 18px;
+        bottom: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <h1>Cubo de Rubik</h1>
+    <a href="#seccion1" class="active">1. El nacimiento</a>
+    <a href="#seccion2">2. Patente y comercialización</a>
+    <a href="#seccion3">3. La fiebre mundial</a>
+    <a href="#seccion4">4. Speedcubing y récords</a>
+    <a href="#seccion5">5. Legado y actualidad</a>
+  </nav>
+
+  <main>
+    <!-- SECCIÓN 1 -->
+    <section id="seccion1">
+      <div class="content">
+        <span class="year">1974</span>
+        <h2>El nacimiento de un ícono</h2>
+        <p>
+          En la primavera de 1974, el arquitecto y profesor húngaro <strong>Ernő Rubik</strong> 
+          (nacido en Budapest en 1944) se enfrentó a un problema pedagógico: cómo enseñar 
+          a sus alumnos de la Academia de Artes Aplicadas la complejidad del espacio tridimensional.
+        </p>
+        <p>
+          Trabajando en su taller, construyó un prototipo de madera con 27 cubitos unidos 
+          por un ingenioso mecanismo de ejes y resortes que permitía girar cada cara de forma independiente. 
+          Al principio lo llamó simplemente <strong>“Bűvös kocka”</strong> (Cubo Mágico).
+        </p>
+        <p>
+          Lo más sorprendente fue que el propio Rubik tardó <strong>más de un mes</strong> 
+          en resolver su propia creación por primera vez. Esa dificultad inesperada le hizo 
+          comprender el enorme potencial del invento.
+        </p>
+      </div>
+      <div class="image-box">
+        <img src="images/historia1.jpg" alt="Ernő Rubik y el primer Cubo Mágico">
+      </div>
+      <div class="section-number">01</div>
+    </section>
+
+    <!-- SECCIÓN 2 -->
+    <section id="seccion2">
+      <div class="content">
+        <span class="year">1975 – 1979</span>
+        <h2>Patente y comercialización</h2>
+        <p>
+          Rubik solicitó la patente húngara el <strong>30 de enero de 1975</strong> 
+          (concedida en 1977). Durante varios años el cubo se fabricó de forma casi artesanal 
+          por la cooperativa Politechnika y se vendía únicamente en tiendas de juguetes de Budapest.
+        </p>
+        <p>
+          En 1979, el empresario Tom Kremer vio el potencial internacional y ayudó a firmar 
+          un acuerdo con la compañía estadounidense <strong>Ideal Toy Company</strong>. 
+          Fue Ideal quien cambió el nombre a <strong>Rubik’s Cube</strong> y lo lanzó 
+          oficialmente al mercado occidental en 1980.
+        </p>
+        <ul>
+          <li>Primera aparición en ferias de juguetes: Nuremberg y Nueva York (1980)</li>
+          <li>Precio inicial aproximado: 1,5 – 2 dólares</li>
+          <li>Material definitivo: plástico ABS de alta calidad</li>
+        </ul>
+      </div>
+      <div class="image-box">
+        <img src="images/historia2.jpg" alt="Primeros cubos comerciales y empaque de Ideal Toy">
+      </div>
+      <div class="section-number">02</div>
+    </section>
+
+    <!-- SECCIÓN 3 -->
+    <section id="seccion3">
+      <div class="content">
+        <span class="year">1980 – 1983</span>
+        <h2>La fiebre mundial</h2>
+        <p>
+          Entre 1980 y 1982 el Cubo de Rubik se convirtió en el fenómeno cultural 
+          más grande de la década. Se estima que se vendieron más de <strong>100 millones</strong> 
+          de unidades en solo tres años, convirtiéndolo en el juguete más vendido de la historia 
+          hasta ese momento.
+        </p>
+        <p>
+          Apareció en portadas de <em>Time</em>, <em>Newsweek</em> y <em>Scientific American</em>. 
+          Se crearon canciones, libros de soluciones (el más famoso de Patrick Bossert vendió 
+          millones de ejemplares) y hasta un programa de televisión en el Reino Unido.
+        </p>
+        <ul>
+          <li>1981: se declara “Juguete del Año” en varios países</li>
+          <li>Se fabricaron versiones no oficiales en casi todos los continentes</li>
+          <li>El cubo se convirtió en símbolo de inteligencia y paciencia</li>
+        </ul>
+      </div>
+      <div class="image-box">
+        <img src="images/historia3.jpg" alt="Fiebre del Cubo de Rubik en los años 80">
+      </div>
+      <div class="section-number">03</div>
+    </section>
+
+    <!-- SECCIÓN 4 -->
+    <section id="seccion4">
+      <div class="content">
+        <span class="year">1982 – presente</span>
+        <h2>Speedcubing y récords</h2>
+        <p>
+          El primer Campeonato Mundial se celebró en <strong>Budapest en 1982</strong>, 
+          organizado por el propio Ernő Rubik. El ganador, Minh Thai, resolvió el cubo 
+          en 22,95 segundos (usando un método primitivo comparado con los actuales).
+        </p>
+        <p>
+          Hoy el <strong>speedcubing</strong> es un deporte oficial regulado por la 
+          World Cube Association (WCA). Existen competiciones en más de 100 países 
+          y se reconocen 17 eventos oficiales.
+        </p>
+        <ul>
+          <li>Récord mundial actual 3×3 (single): <strong>menos de 3,5 segundos</strong></li>
+          <li>Métodos más usados: CFOP (Fridrich), Roux y ZZ</li>
+          <li>Los mejores speedcubers realizan más de 10 movimientos por segundo</li>
+          <li>Existen categorías de pies, una mano, ojos vendados y multi-blind</li>
+        </ul>
+      </div>
+      <div class="image-box">
+        <img src="images/historia4.jpg" alt="Competición de speedcubing moderna">
+      </div>
+      <div class="section-number">04</div>
+    </section>
+
+    <!-- SECCIÓN 5 -->
+    <section id="seccion5">
+      <div class="content">
+        <span class="year">Hoy</span>
+        <h2>Legado y actualidad</h2>
+        <p>
+          Más de <strong>450 millones</strong> de Cubos de Rubik se han vendido en todo el mundo. 
+          Es uno de los objetos más reconocibles del planeta y ha inspirado arte, ciencia, 
+          matemáticas y hasta misiones espaciales (hubo un cubo a bordo de la Estación Espacial Internacional).
+        </p>
+        <p>
+          Existen cientos de variantes: 2×2, 4×4, 5×5, 6×6, 7×7, Mirror Cube, Pyraminx, 
+          Megaminx, Skewb, Square-1 y muchas más. También hay cubos inteligentes con sensores 
+          y aplicaciones móviles que enseñan a resolverlos paso a paso.
+        </p>
+        <ul>
+          <li>En 2014 se celebró el 40º aniversario con exposiciones en todo el mundo</li>
+          <li>Ernő Rubik sigue siendo una figura pública y ha escrito varios libros</li>
+          <li>El cubo se usa en terapias, educación STEM y como símbolo de resolución de problemas</li>
+        </ul>
+      </div>
+      <div class="image-box">
+        <img src="images/historia5.jpg" alt="Cubo de Rubik en la cultura actual">
+      </div>
+      <div class="section-number">05</div>
+    </section>
+  </main>
+
+  <script>
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (scrollY >= sectionTop - 200) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
